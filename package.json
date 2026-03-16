@@ -1,0 +1,72 @@
+{
+	"name": "codex-quota-monitor",
+	"displayName": "Codex Quota Monitor",
+	"publisher": "ylsagi",
+	"version": "0.0.3",
+	"description": "Monitor Codex remaining_quota and package usage from the VS Code status bar.",
+	"engines": {
+		"vscode": "^1.111.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"main": "./extension.js",
+	"activationEvents": [
+		"onStartupFinished",
+		"onCommand:codexQuotaMonitor.refresh",
+		"onCommand:codexQuotaMonitor.openPanel",
+		"onCommand:codexQuotaMonitor.setApiKey",
+		"onCommand:codexQuotaMonitor.setRefreshInterval",
+		"onCommand:codexQuotaMonitor.clearApiKey"
+	],
+	"contributes": {
+		"commands": [
+			{
+				"command": "codexQuotaMonitor.refresh",
+				"title": "Codex Quota Monitor: Refresh"
+			},
+			{
+				"command": "codexQuotaMonitor.openPanel",
+				"title": "Codex Quota Monitor: Open Details"
+			},
+			{
+				"command": "codexQuotaMonitor.setApiKey",
+				"title": "Codex Quota Monitor: Set API Key"
+			},
+			{
+				"command": "codexQuotaMonitor.setRefreshInterval",
+				"title": "Codex Quota Monitor: Set Refresh Interval"
+			},
+			{
+				"command": "codexQuotaMonitor.clearApiKey",
+				"title": "Codex Quota Monitor: Clear API Key"
+			}
+		],
+		"configuration": {
+			"title": "Codex Quota Monitor",
+			"properties": {
+				"codexQuotaMonitor.apiEndpoint": {
+					"type": "string",
+					"default": "https://codex.ylsagi.com/codex/info",
+					"description": "HTTP endpoint used to fetch Codex quota information."
+				},
+				"codexQuotaMonitor.refreshIntervalMinutes": {
+					"type": "number",
+					"default": 5,
+					"minimum": 1,
+					"description": "How often the status bar should refresh automatically."
+				},
+				"codexQuotaMonitor.warningThreshold": {
+					"type": "number",
+					"default": 100,
+					"description": "Show a warning background when remaining_quota is at or below this value."
+				}
+			}
+		}
+	},
+	"__metadata": {
+		"installedTimestamp": 1773646857656,
+		"targetPlatform": "undefined",
+		"size": 19607
+	}
+}
