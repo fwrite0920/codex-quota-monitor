@@ -427,7 +427,7 @@ function activate(context) {
     <div class="card">
       <div class="header">
         <div class="title">YSL Quota</div>
-        <div class="badge">${hasInfo ? `ysl ${viewModel.remainingText}` : '未配置'}</div>
+        <div class="badge">${hasInfo ? `yls ${viewModel.remainingText}` : '未配置'}</div>
       </div>
 
       <div class="section">

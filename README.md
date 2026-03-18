@@ -4,7 +4,7 @@ A lightweight VS Code extension for monitoring Codex quota usage from the status
 
 ## Features
 
-- Shows remaining quota in the status bar as `ysl <remaining_quota>`
+- Shows remaining quota in the status bar as `yls <remaining_quota>`
 - Opens a compact quota card when clicked
 - Displays:
   - used percentage
@@ -34,7 +34,7 @@ A lightweight VS Code extension for monitoring Codex quota usage from the status
 ### From Command Line
 
 ```bash
-code --install-extension ylsagi.codex-quota-monitor-0.0.3.vsix --force
+code --install-extension ylsagi.codex-quota-monitor-0.0.4.vsix --force
 ```
 
 ## Usage

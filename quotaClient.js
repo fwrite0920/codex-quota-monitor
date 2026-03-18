@@ -64,7 +64,7 @@ function formatQuotaText(remainingQuota) {
 }
 
 function formatStatusBarText(remainingQuota) {
-  return `ysl ${formatValue(remainingQuota)}`;
+  return `yls ${formatValue(remainingQuota)}`;
 }
 
 function formatPackageUsage(packageUsage) {
