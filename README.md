@@ -34,7 +34,7 @@ A lightweight VS Code extension for monitoring Codex quota usage from the status
 ### From Command Line
 
 ```bash
-code --install-extension ylsagi.codex-quota-monitor-0.0.4.vsix --force
+code --install-extension ylsagi.codex-quota-monitor-0.0.5.vsix --force
 ```
 
 ## Usage

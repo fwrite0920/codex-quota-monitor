@@ -426,7 +426,7 @@ function activate(context) {
   <div class="shell">
     <div class="card">
       <div class="header">
-        <div class="title">YSL Quota</div>
+        <div class="title">YLS Quota</div>
         <div class="badge">${hasInfo ? `yls ${viewModel.remainingText}` : '未配置'}</div>
       </div>
 
@@ -492,7 +492,7 @@ function activate(context) {
 
     state.panel = vscode.window.createWebviewPanel(
       'codexQuotaMonitor.details',
-      'YSL Quota',
+      'YLS Quota',
       { viewColumn: vscode.ViewColumn.Active, preserveFocus: true },
       { enableScripts: true },
     );
