@@ -10,6 +10,14 @@ function getPackageUsageSource(payload) {
   return payload.state?.userPackgeUsage ?? payload.state?.userPackageUsage ?? null;
 }
 
+function getWeeklyPackageUsageSource(payload) {
+  return payload.state?.userPackgeUsage_week
+    ?? payload.state?.userPackageUsage_week
+    ?? payload.state?.userPackgeUsageWeek
+    ?? payload.state?.userPackageUsageWeek
+    ?? null;
+}
+
 function extractQuotaInfo(payload) {
   if (!payload || typeof payload !== 'object') {
     throw new Error('Invalid response payload');
@@ -17,14 +25,25 @@ function extractQuotaInfo(payload) {
 
   const packageUsageSource = getPackageUsageSource(payload);
   const packageUsageDetails = isRecord(packageUsageSource) ? packageUsageSource : null;
+  const weeklyPackageUsageSource = getWeeklyPackageUsageSource(payload);
+  const weeklyPackageUsageDetails = isRecord(weeklyPackageUsageSource) ? weeklyPackageUsageSource : null;
   const remainingQuota = packageUsageDetails?.remaining_quota ?? payload.remaining_quota ?? null;
   const packageUsage = packageUsageDetails?.used_percentage ?? packageUsageSource ?? null;
+  const weeklyRemainingQuota = weeklyPackageUsageDetails?.remaining_quota ?? null;
+  const weeklyPackageUsage = weeklyPackageUsageDetails?.used_percentage ?? weeklyPackageUsageSource ?? null;
 
   if (remainingQuota === null && packageUsage === null) {
     throw new Error('Response did not contain remaining_quota or userPackgeUsage');
   }
 
-  return { remainingQuota, packageUsage, packageUsageDetails };
+  return {
+    remainingQuota,
+    packageUsage,
+    packageUsageDetails,
+    weeklyRemainingQuota,
+    weeklyPackageUsage,
+    weeklyPackageUsageDetails,
+  };
 }
 
 function formatValue(value) {
@@ -144,17 +163,24 @@ function formatTime(date) {
 
 function buildQuotaViewModel(info) {
   const details = info?.packageUsageDetails ?? {};
+  const weeklyDetails = info?.weeklyPackageUsageDetails ?? {};
   const packageUsage = details.used_percentage ?? info?.packageUsage;
   const remainingQuota = details.remaining_quota ?? info?.remainingQuota;
+  const weeklyPackageUsage = weeklyDetails.used_percentage ?? info?.weeklyPackageUsage;
+  const weeklyRemainingQuota = weeklyDetails.remaining_quota ?? info?.weeklyRemainingQuota;
   const numericUsage = Number(packageUsage);
   const progressPercent = Number.isFinite(numericUsage)
     ? Math.max(0, Math.min(100, numericUsage))
     : 0;
+  const numericWeeklyUsage = Number(weeklyPackageUsage);
 
   return {
     remainingText: formatValue(remainingQuota),
     packageUsageText: formatPackageUsage(packageUsage),
     progressText: Number.isFinite(numericUsage) ? `${numericUsage}%` : '--',
+    weeklyRemainingText: formatValue(weeklyRemainingQuota),
+    weeklyPackageUsageText: formatPackageUsage(weeklyPackageUsage),
+    weeklyProgressText: Number.isFinite(numericWeeklyUsage) ? `${numericWeeklyUsage}%` : '--',
     progressPercent,
     tone: getUsageTone(progressPercent),
     updatedText: formatTime(info?.fetchedAt),
@@ -162,6 +188,9 @@ function buildQuotaViewModel(info) {
       { label: '总额度', value: formatValue(details.total_quota) },
       { label: '总成本', value: formatMoney(details.total_cost) },
       { label: '总 Tokens', value: formatInteger(details.total_tokens) },
+    ],
+    weeklySummaryMetrics: [
+      { label: '周总额度', value: formatValue(weeklyDetails.total_quota) },
     ],
     secondaryMetrics: [
       { label: '缓存命中', value: formatInteger(details.input_tokens_cached) },

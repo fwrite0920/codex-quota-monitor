@@ -9,8 +9,11 @@ A lightweight VS Code extension for monitoring Codex quota usage from the status
 - Displays:
   - used percentage
   - remaining quota
+  - weekly remaining quota
+  - weekly usage
   - progress bar
   - total quota
+  - weekly total quota
   - total cost
   - total tokens
   - cached input tokens
@@ -34,7 +37,7 @@ A lightweight VS Code extension for monitoring Codex quota usage from the status
 ### From Command Line
 
 ```bash
-code --install-extension ylsagi.codex-quota-monitor-0.0.5.vsix --force
+code --install-extension ylsagi.codex-quota-monitor-0.0.6.vsix --force
 ```
 
 ## Usage
@@ -45,6 +48,8 @@ After installation:
 2. Enter your API key
 3. Wait for the first refresh, or run `Codex Quota Monitor: Refresh`
 4. Click the status bar item to open the detailed quota card
+
+The status bar keeps showing the primary remaining quota as `yls <remaining_quota>`. Weekly quota details appear in the tooltip and details card.
 
 ## Configuration
 

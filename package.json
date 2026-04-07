@@ -2,7 +2,7 @@
 	"name": "codex-quota-monitor",
 	"displayName": "Codex Quota Monitor",
 	"publisher": "ylsagi",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"description": "Monitor Codex remaining_quota and package usage from the VS Code status bar.",
 	"scripts": {
 		"test": "node --test"

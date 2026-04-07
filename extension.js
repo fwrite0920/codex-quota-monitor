@@ -82,6 +82,8 @@ function activate(context) {
     statusBarItem.tooltip = [
       `Remaining quota: ${viewModel.remainingText}`,
       `Package usage: ${viewModel.packageUsageText}`,
+      `Weekly remaining quota: ${viewModel.weeklyRemainingText}`,
+      `Weekly usage: ${viewModel.weeklyPackageUsageText}`,
       `Updated: ${updatedAt}`,
       'Click to refresh',
       'Use Command Palette: Codex Quota Monitor',
@@ -202,7 +204,7 @@ function activate(context) {
       : hasInfo
         ? '点击下方按钮可立即刷新'
         : '请先设置 API Key';
-    const summaryMarkup = viewModel.summaryMetrics
+    const summaryMarkup = [...viewModel.summaryMetrics, ...viewModel.weeklySummaryMetrics]
       .map(metric => `
         <div class="metric-card">
           <div class="metric-label">${metric.label}</div>
@@ -440,8 +442,16 @@ function activate(context) {
           <div class="value">${viewModel.remainingText}</div>
         </div>
         <div class="row">
+          <div class="label">周剩余额度</div>
+          <div class="value">${viewModel.weeklyRemainingText}</div>
+        </div>
+        <div class="row">
           <div class="label">用量进度</div>
           <div class="value progress-value">${viewModel.progressText}</div>
+        </div>
+        <div class="row">
+          <div class="label">周使用率</div>
+          <div class="value progress-value">${viewModel.weeklyProgressText}</div>
         </div>
         <div class="progress">
           <div class="progress-bar">
